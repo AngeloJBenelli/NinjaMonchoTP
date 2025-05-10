@@ -24,7 +24,7 @@ const config = {
     default: "arcade",
     arcade: {
       gravity: { y: 200 },
-      debug: true,
+      debug: false,
     },
   },
   // List of scenes to load
@@ -35,3 +35,4 @@ const config = {
 
 // Create a new Phaser game instance
 window.game = new Phaser.Game(config);
+
