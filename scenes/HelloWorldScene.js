@@ -16,31 +16,36 @@ export default class HelloWorldScene extends Phaser.Scene {
 
   preload() {
     // load assets
-    this.load.image("sky", "./assets/space3.png");
-    this.load.image("logo", "./assets/phaser3-logo.png");
-    this.load.image("red", "./assets/particles/red.png");
+    this.load.image("sky", "./public/assets/FondoMenu.jpg");
+    this.load.image("logo", "./public/assets/Ninja.png");
   }
 
   create() {
-    // create game objects
+    // this is called after the scene is created
     this.add.image(400, 300, "sky");
 
+    this.add.text(400, 200, "Ninja Moncho", {
+      fontSize: "64px",
+      fill: "#ffff00",
+    }).setOrigin(0.5);
+
+    this.add.text(400, 400, "Presiona al Ninja para empezar", {
+      fontSize: "32px",
+      fill: "#000000",
+    }).setOrigin(0.5)
+
     const logo = this.physics.add.image(400, 100, "logo");
+    logo.setScale(0.10);
     logo.setVelocity(100, 200);
     logo.setBounce(1, 1);
     logo.setCollideWorldBounds(true);
+    logo.setInteractive();
 
-    // emmit particles from logo
-    const emitter = this.add.particles(0, 0, "red", {
-      speed: 100,
-      scale: { start: 1, end: 0 },
-      blendMode: "ADD",
+    logo.on("pointerdown", () => {
+     this.scene.start("game");
     });
 
-    emitter.startFollow(logo);
+
   }
 
-  update() {
-    // update game objects
-  }
 }
