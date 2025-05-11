@@ -86,29 +86,35 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update() {
-    if (this.win) return;
+  if (this.win) return;
 
-    if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-160);
-    } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(160);
-    } else {
-      this.player.setVelocityX(0);
-    }
-
-    if (this.cursors.up.isDown && this.player.body.touching.down) {
-      this.player.setVelocityY(-330);
-    }
-
-    if (this.restartKey.isDown) {
-      this.scene.restart();
-    }
-
-    if (this.player.y > 570 && !this.gameOver) { // Suponiendo que 570 es el límite inferior
-     this.scene.start("lose", {score: this.score}); // Cambia a la escena de derrota
-    }
-
+  if (this.cursors.left.isDown) {
+    this.player.setVelocityX(-160);
+  } else if (this.cursors.right.isDown) {
+    this.player.setVelocityX(160);
+  } else {
+    this.player.setVelocityX(0);
   }
+
+  if (this.cursors.up.isDown && this.player.body.touching.down) {
+    this.player.setVelocityY(-330);
+  }
+
+  if (this.restartKey.isDown) {
+    this.scene.restart();
+  }
+
+  if (this.player.y > 570 && !this.gameOver) {
+    this.scene.start("lose", { score: this.score });
+  }
+
+  // Destruir rayos que caen más allá del fondo
+  this.rayos.getChildren().forEach((rayo) => {
+    if (rayo.y > 560) {
+      rayo.destroy();
+    }
+  });
+}
 
   updateTimer() {
     if (this.win) return;
